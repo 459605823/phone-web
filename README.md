@@ -21,8 +21,8 @@
 
 #### *rem*
 > font size of the root element
+> 1rem = html的font-size
 
-1rem = html的font-size
 首先以设计稿的屏幕大小设置html的font-size，然后网页各处（元素尺寸、文字大小）根据此font-size来设置大小，使用rem作为单位，
 随后搭配媒体查询或JS，根据屏幕的大小来动态控制html元素的font-size，当html的font-size改变，其他元素的大小也会跟着改变
 ```css
