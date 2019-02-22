@@ -28,7 +28,7 @@
    5.1 [300ms延迟](#5-1)
 
    5.2 [touch事件](#5-2)
-   
+
    5.3 [弹性滚动](#5-3)
 
 ## 综述
@@ -58,20 +58,26 @@
 - PPI: 屏幕每英寸的像素数量，即单位英寸内的像素密度
 
 在计算机显示设备参数描述上，二者意思相同
+
 计算公式：以ipone5为例(1136*640, 4英寸)
 ppi = √(1136^2 + 640^2) / 4 = 326ppi(视网膜Retina屏) 单位为硬件像素，非px
 
 ![](images/ppi.png)
+
 ppi越高，像素数越高，图像越清晰
 
 ![](images/dpr.png)
+
 retina高清屏的dpr都是大于等于2
 eg: iphone5的ppi为326大于320，所以iphone5的dpr等于2
+
 ![](images/iphone5.png)
 
 #### <a id="1-2">1.2 *viewport*</a>
 layout viewport = document.documentElement.clientWidth(移动设备默认viewport)
+
 visual viewport = window.innerWidth(浏览器可视区域大小)
+
 ideal viewport = device-width
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
@@ -172,6 +178,7 @@ window.addEventListener('resize', ()=> {
     - 隐藏冗余的元素
 
 [静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别](https://www.cnblogs.com/yanayana/p/7066948.html)
+
 [响应式布局总结](https://www.cnblogs.com/dreamsboy/p/5656009.html)
 
 ## <a id="4">四、移动web特别样式处理</a>
