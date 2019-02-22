@@ -1,0 +1,95 @@
+@charset "utf-8";
+
+@function px2rem($px) {
+    $htmlFontSize: 37.5px;
+    @return ($px / $htmlFontSize) + rem;
+}
+html {
+    // font-size: 37.5px; 按照设计稿屏幕大小来写
+    background-color: #f8f8f8;
+}
+.header {
+    height: px2rem(40px);
+    width: 100%;
+    background-color: red;
+    padding-left: px2rem(23px);
+    .header-item {
+        float: left;
+        color: #ffcdc3;
+        font-size: px2rem(16px);
+        margin-right: px2rem(20px);
+        line-height: px2rem(40px);
+    }
+    .choose-item {
+        color: #fff;
+        font-size: px2rem(17px);
+    }
+}
+.banner-wrapper {
+    position: relative;
+    .banner{
+        display: block;
+        width: 100%;
+        height: px2rem(190px);
+    }
+    .banner-title {
+        background: rgba(0,0,0,.3);
+        padding-left: px2rem(15px);
+        font-size: px2rem(16px);
+        color: #fff;
+        bottom: 0;
+        position: absolute;
+        width: 100%;
+    }
+}
+.news-content {
+    .news-item {
+        width: 100%;
+        height: px2rem(90px);
+        padding: 0 px2rem(15px);
+        box-sizing: border-box;
+        .item-content {
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            border-bottom: px2rem(1px) solid #5e5e5e;
+            .news-img {
+                float: left;
+                display: block;
+                width: px2rem(95px);
+                height: px2rem(70px);
+                margin: px2rem(10px) px2rem(10px) 0 0;
+            }
+            .news-title {
+                font-size: px2rem(17px);
+                color: #404040;
+                margin-top: px2rem(16px);
+            }
+            .time {
+                position: absolute;
+                left: px2rem(105px);
+                bottom: px2rem(17px);
+                color: #888;
+                font-size: px2rem(12px);
+            }
+            .number {
+                position: absolute;
+                color: #888;
+                font-size: px2rem(12px);
+                right: px2rem(4px);
+                bottom: px2rem(17px);
+                &::before {
+                    width: px2rem(16px);
+                    height: px2rem(15px);
+                    content: '';
+                    display: block;
+                    left: px2rem(-25px);
+                    top: px2rem(2px);
+                    position: absolute;
+                    background-image: url(read.png);
+                }
+            }
+        }
+        
+    }
+}

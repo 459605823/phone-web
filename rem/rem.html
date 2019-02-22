@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>rem</title>
+    <style>
+        /* html 默认font-size = 16px */
+        .box {
+            width: 30rem;
+            height: 30rem;
+            background: #ccc;
+        }
+        .text {
+            width: 15rem;
+            height: 15rem;
+            font-size: 1.6rem;
+            background: #aaa;
+        }
+        /* @media screen and (max-width: 360px) and (min-width: 321px) {
+            html {
+                font-size: 20px;
+            }
+        }
+        @media screen and (max-width: 320px) {
+            html {
+                font-size: 24px;
+            }
+        } */
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="text">hello rem!</div>
+    </div>
+    <script>
+        var htmlWidth = document.documentElement.clientWidth || document.body.clientWidth
+        var htmlDom = document.getElementsByTagName('html')[0]
+        htmlDom.style.fontSize = htmlWidth / 10 + 'px'
+    </script>
+</body>
+</html>
