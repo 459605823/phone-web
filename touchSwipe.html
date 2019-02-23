@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>Test Tap</title>
+    <style>
+        .touchpad {
+            margin-top: 30px;
+            width: 100%;
+            height: 200px;
+            font-size: 40px;
+            text-align: center;
+            line-height: 200px;
+            background: rgba(0, 0, 0, 0.5);
+            position: relative;
+            color: #ddd;
+        }
+
+        .ball {
+            display: none;
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 15px;
+            background-color: #7AE6FF;
+            top: 0;
+            left: 0;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="touchPad" class="touchpad">触摸板</div>
+    <div id="ball" class="ball"></div>
+</body>
+<script type="text/javascript">
+    var touchPad = document.querySelector('#touchPad')
+    var ball = document.querySelector('#ball')
+    var SWIPE_DISTANCE = 30 //移动30px之后才认为swipe事件
+    var SWIPE_TIME = 500 //swipe最大经历时间
+    var point_start, // 点击起始坐标
+    point_end, // 点击结束坐标
+    time_start, // 点击开始时间
+    time_end // 点击接受时间
+
+    var startEv, moveEv, endEv
+    if("ontouchstart" in window) { // 如果存在touch事件，为移动端
+        startEv = "touchstart"
+        moveEv = "touchmove"
+        endEv = "touchend"
+    } else { // 否则为pc端，使用mouse事件
+        startEv = "mousedown"
+        moveEv = "mousemove"
+        endEv = "mouseup"
+    }
+    touchPad.addEventListener(startEv, startHandler)
+    touchPad.addEventListener(moveEv, moveHandler)
+    touchPad.addEventListener(endEv, endHandler)
+
+    function getTouchPos (e) { // 获取点击位置坐标
+        var touches = e.touches
+        if(touches && touches[0]) {
+            return {
+                x: touches[0].clientX,
+                y: touches[0].clientY
+            }
+        } else {
+            return {
+                x: e.clientX,
+                y: e.clientY
+            }
+        }
+    }
+
+    function startHandler (e) {
+        point_start = getTouchPos(e)
+        time_start = new Date()
+        ball.style.left = point_start.x + 'px'
+        ball.style.top = point_start.y + 'px'
+        ball.style.display = 'block'
+    }
+    
+    function moveHandler (e) {
+        var pos = getTouchPos(e)
+        ball.style.left = pos.x + 'px'
+        ball.style.top = pos.y + 'px'
+        // 兼容pc端，所以在move中获取结束坐标
+        point_end = getTouchPos(e)
+        // 避免andriod系统touch事件bug
+        e.preventDefault()
+        
+    }
+
+    function endHandler (e) {
+        time_end = new Date()
+        ball.style.display = 'none'
+        if(getDist(point_start,point_end) > SWIPE_DISTANCE && time_end - time_start < SWIPE_TIME) {
+            var dir = getDir(point_start, point_end)
+            touchPad.innerHTML = "swipe" + dir
+        }
+    }
+
+    function getDist (p1,p2) { // 获取两点之间距离
+       if(!p1 || !p2) return 0
+       return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y))
+    }
+
+    function getAngel(p1,p2) { // 获取两点之间角度
+       // 获取两点之间弧度
+       var rad = Math.atan2(p1.y - p2.y, p2.x - p1.x)
+       // 弧度 * (180 / π） = 度数
+       return rad * 180 / Math.PI
+    }
+
+    function getDir(p1,p2) { // 获取手势方向
+       var angle = getAngel(p1,p2)
+       if(angle < 45 && angle > -45) return "right";
+       if(angle >= 45 && angle < 135) return "top";
+       if(angle >= 135 || angle < -135) return "left";
+       if(angle >= -135 && angle <= -45) return "bottom";
+    }
+</script>
+</html>
